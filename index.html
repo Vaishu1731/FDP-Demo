@@ -1,11 +1,458 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Simple H1 Page</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dr. S. Vaishnavi — Portfolio</title>
+    <style>
+        :root{
+            --bg1: #f0f4f8;
+            --bg2: #f0f4f8;
+            --card: linear-gradient(135deg,#a0e1e0 0%,#d6c3f0 100%);
+            --muted: rgba(0,0,0,0.85);
+            --glass: rgba(255,255,255,0.9);
+            --accent: #007bff;
+            --accent-2: #6f42c1;
+            --radius: 14px;
+            --maxw: 1000px;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        html,body{
+            height:100%;
+            margin:0;
+            background: radial-gradient(1200px 400px at 10% 10%, rgba(124,58,237,0.12), transparent 6%),
+                                    radial-gradient(800px 300px at 90% 90%, rgba(34,193,195,0.08), transparent 6%),
+                                    linear-gradient(180deg,#ffffff 0%, #e9ecef 100%);
+            color:var(--muted);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding:40px 20px;
+        }
+
+        .wrap{
+            max-width:var(--maxw);
+            margin:0 auto;
+            display:grid;
+            grid-template-columns: 320px 1fr;
+            gap:24px;
+            align-items:start;
+        }
+
+        /* Sidebar */
+        .card{
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+            border-radius:var(--radius);
+            padding:22px;
+            box-shadow:var(--shadow);
+            backdrop-filter: blur(6px);
+        }
+
+        .profile{
+            display:flex;
+            gap:16px;
+            align-items:center;
+            margin-bottom:14px;
+        }
+        .avatar{
+            width:86px;
+            height:86px;
+            border-radius:14px;
+            background:linear-gradient(135deg,var(--accent),var(--accent-2));
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:700;
+            font-size:28px;
+            color:white;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+        h1{
+            margin:0;
+            font-size:18px;
+            letter-spacing:0.6px;
+            color:#000;
+        }
+        .sub{
+            margin:4px 0 0;
+            font-size:13px;
+            color:rgba(0,0,0,0.84);
+        }
+
+        .contact p{
+            margin:10px 0;
+            font-size:13px;
+            line-height:1.35;
+        }
+        .contact a{ color:var(--accent); text-decoration:none; }
+
+        .skills{
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            margin-top:12px;
+        }
+        .skill{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            font-size:13px;
+        }
+        .bar{
+            height:8px;
+            background:rgba(0,0,0,0.06);
+            border-radius:999px;
+            overflow:hidden;
+            margin-top:6px;
+        }
+        .bar > i{
+            display:block;
+            height:100%;
+            background:linear-gradient(90deg,var(--accent),var(--accent-2));
+            border-radius:inherit;
+        }
+
+        /* Main content */
+        .main{
+            display:flex;
+            flex-direction:column;
+            gap:18px;
+        }
+
+        .hero{
+            background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+            padding:18px;
+            border-radius:12px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:12px;
+        }
+        .hero-left{
+            display:flex;
+            flex-direction:column;
+        }
+        .title{
+            color:#000;
+            font-size:20px;
+            margin:0 0 6px 0;
+        }
+        .role{
+            color:rgba(0,0,0,0.75);
+            font-size:13px;
+            margin:0;
+        }
+        .objective{
+            margin-top:8px;
+            color:rgba(0,0,0,0.88);
+            font-size:13px;
+            background:var(--glass);
+            padding:12px;
+            border-radius:10px;
+        }
+
+        /* Sections */
+        section h2{
+            margin:0 0 10px 0;
+            font-size:16px;
+            color:#000;
+        }
+        .grid{
+            display:grid;
+            gap:12px;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+        }
+        table{
+            width:100%;
+            border-collapse:collapse;
+            font-size:13px;
+            color:rgba(0,0,0,0.95);
+            background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+            border-radius:10px;
+            overflow:hidden;
+        }
+        th,td{
+            padding:10px 12px;
+            text-align:left;
+            border-bottom:1px dashed rgba(0,0,0,0.04);
+        }
+        th{
+            background:rgba(255,255,255,0.8);
+            font-weight:600;
+            font-size:13px;
+            color:#000;
+        }
+
+        .timeline{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+        .t-item{
+            background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+            padding:12px;
+            border-radius:10px;
+        }
+        .t-meta{
+            font-size:13px;
+            color:rgba(0,0,0,0.9);
+            display:flex;
+            justify-content:space-between;
+            gap:8px;
+            align-items:center;
+        }
+        .t-role{
+            color:var(--accent);
+            font-weight:600;
+            font-size:13px;
+        }
+
+        .chips{
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+        }
+        .chip{
+            background:rgba(0,0,0,0.03);
+            padding:8px 10px;
+            border-radius:999px;
+            font-size:13px;
+            color:rgba(0,0,0,0.95);
+        }
+
+        .ach-list{
+            list-style:disc;
+            margin:10px 0 0 18px;
+            padding:0;
+            color:rgba(0,0,0,0.92);
+            font-size:13px;
+        }
+
+        footer{
+            margin-top:6px;
+            font-size:12px;
+            color:rgba(0,0,0,0.6);
+            text-align:center;
+        }
+
+        @media (max-width:900px){
+            .wrap{ grid-template-columns: 1fr; padding-bottom:30px;}
+            .grid{ grid-template-columns: 1fr;}
+        }
+    </style>
 </head>
 <body>
-    <h1>Simple H1 Tag</h1>
+    <div class="wrap">
+        <aside class="card">
+            <div class="profile">
+                <div class="avatar">SV</div>
+                <div>
+                    <h1>Dr. S. VAISHNAVI</h1>
+                    <div class="sub">Assistant Professor — Computer Science & IT</div>
+                </div>
+            </div>
+
+            <div class="contact">
+                <p>
+                    <strong>Address</strong><br/>
+                    Site No:21, Sri Lakshmi Nagar,<br/>
+                    Jothy Colony (Back Side),<br/>
+                    Narasimmanaicken Palayam,<br/>
+                    Coimbatore - 641031.
+                </p>
+
+                <p><strong>Email Id:</strong> <a href="mailto:vaishnavi1731@gmail.com">vaishnavi1731@gmail.com</a></p>
+                <p><strong>Mobile no:</strong> <a href="tel:+919952139457">+91 99521 39457</a></p>
+            </div>
+
+            <div style="height:1px;background:rgba(255,255,255,0.03);margin:12px 0;border-radius:6px;"></div>
+
+            <div>
+                <h2 style="font-size:14px;margin-bottom:8px;">Research Interest</h2>
+                <div class="chips">
+                    <div class="chip">Data Science</div>
+                    <div class="chip">Machine Learning</div>
+                    <div class="chip">Web Development</div>
+                </div>
+            </div>
+
+            <div style="margin-top:12px;">
+                <h2 style="font-size:14px;margin-bottom:8px;">Programming</h2>
+                <div class="skills">
+                    <div>
+                        <div class="skill"><span>C</span><span>Advanced</span></div>
+                        <div class="bar"><i style="width:86%"></i></div>
+                    </div>
+                    <div>
+                        <div class="skill"><span>Java</span><span>Advanced</span></div>
+                        <div class="bar"><i style="width:88%"></i></div>
+                    </div>
+                    <div>
+                        <div class="skill"><span>Python</span><span>Advanced</span></div>
+                        <div class="bar"><i style="width:90%"></i></div>
+                    </div>
+                    <div>
+                        <div class="skill"><span>Angular</span><span>Intermediate</span></div>
+                        <div class="bar"><i style="width:74%"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:14px;">
+                <h2 style="font-size:14px;margin-bottom:8px;">Highlights</h2>
+                <ul class="ach-list">
+                    <li>Anna University level 8th Rank in PG & Branch Topper in ME(SE).</li>
+                    <li>Anna University level 36th rank in B.Tech.</li>
+                    <li>Teaching Excellence Award; NPTEL Discipline Star.</li>
+                    <li>Wipro Certified Faculty (Java J2EE) & TalentNext mentor.</li>
+                    <li>Innovation Ambassador — MoE & AICTE; IBM Design Thinking Practitioner.</li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="hero card">
+                <div class="hero-left">
+                    <p class="title">Dr. S. VAISHNAVI — Academic Profile & Research</p>
+                    <p class="role">Assistant Professor | Data Science • ML • Web Development</p>
+                    <div class="objective">
+                        To strive hard with the zeal for excellence and meet every challenge with a perfect blend of freshness, dedication, and no procrastination, thus contributing to the organization.
+                    </div>
+                </div>
+                <div style="min-width:220px;text-align:right">
+                    <div style="font-size:12px;color:rgba(255,255,255,0.8);margin-bottom:8px">Total Experience till date</div>
+                    <div style="font-weight:700;font-size:18px;color:var(--accent)">10 years 6 months</div>
+                </div>
+            </div>
+
+            <section class="card">
+                <h2>Education</h2>
+                <div style="overflow:auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Degree</th>
+                                <th>Name of the Institution</th>
+                                <th>Board / University</th>
+                                <th>Year</th>
+                                <th>Percentage / CGPA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ph.D</td>
+                                <td>-</td>
+                                <td>Anna University</td>
+                                <td>2022</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>M.E. (Software Engineering)</td>
+                                <td>SNS College of Technology</td>
+                                <td>Anna University Chennai</td>
+                                <td>2013</td>
+                                <td>8.8</td>
+                            </tr>
+                            <tr>
+                                <td>B.Tech (Information Technology)</td>
+                                <td>Maharaja Prithvi Engineering College, Avinashi</td>
+                                <td>Anna University Coimbatore</td>
+                                <td>2011</td>
+                                <td>9.2</td>
+                            </tr>
+                            <tr>
+                                <td>HSC</td>
+                                <td>Ideal Matriculation Higher Secondary School, Coimbatore</td>
+                                <td>Matric</td>
+                                <td>2007</td>
+                                <td>81.4</td>
+                            </tr>
+                            <tr>
+                                <td>SSLC</td>
+                                <td>Ideal Matriculation Higher Secondary School, Coimbatore</td>
+                                <td>Matric</td>
+                                <td>2005</td>
+                                <td>86.9</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Teaching Experience</h2>
+                <div class="timeline">
+                    <div class="t-item">
+                        <div class="t-meta">
+                            <div>
+                                <div class="t-role">Assistant Professor — PSG Institute of Technology and Applied Research</div>
+                                <div style="font-size:13px;margin-top:6px;color:rgba(255,255,255,0.85)">Department: Computer Science and Engineering</div>
+                            </div>
+                            <div style="font-size:13px;color:rgba(255,255,255,0.75)">From: 01.06.2023 — Till date<br>2 year 1 month</div>
+                        </div>
+                    </div>
+
+                    <div class="t-item">
+                        <div class="t-meta">
+                            <div>
+                                <div class="t-role">Assistant Professor — Sri Ramakrishna Engineering College</div>
+                                <div style="font-size:13px;margin-top:6px;color:rgba(255,255,255,0.85)">Department: Information Technology</div>
+                            </div>
+                            <div style="font-size:13px;color:rgba(255,255,255,0.75)">07.12.2020 — 29.05.2023<br>2 years 5 months</div>
+                        </div>
+                    </div>
+
+                    <div class="t-item">
+                        <div class="t-meta">
+                            <div>
+                                <div class="t-role">Assistant Professor — Sri Eshwar College of Engineering</div>
+                                <div style="font-size:13px;margin-top:6px;color:rgba(255,255,255,0.85)">Department: Computer Science and Engineering</div>
+                            </div>
+                            <div style="font-size:13px;color:rgba(255,255,255,0.75)">17.06.2019 — 03.12.2020<br>1 year 5 months</div>
+                        </div>
+                    </div>
+
+                    <div class="t-item">
+                        <div class="t-meta">
+                            <div>
+                                <div class="t-role">Assistant Professor — SNS College of Technology</div>
+                                <div style="font-size:13px;margin-top:6px;color:rgba(255,255,255,0.85)">Department: Computer Science and Engineering</div>
+                            </div>
+                            <div style="font-size:13px;color:rgba(255,255,255,0.75)">17.06.2013 — 31.10.2017<br>4 years 4 Months</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Projects, Publications & Awards</h2>
+                <ul class="ach-list">
+                    <li>Developed CO-PO Attainment Application & Digital Student Card Web Application for student proctoring.</li>
+                    <li>Won Rank 3 in Projects on Artificial Intelligence by Wipro (Advanced Technology Program).</li>
+                    <li>Best Paper Award: “Enhancing Steel Melting Shop operations: Object Detection using Template Matching Algorithm”, IEEE International Conference on Industrial Electronics (29–30 Sep 2023).</li>
+                    <li>Vaishnavi S et al., “A Hybrid Approach for Understanding Animal Behavior Using Deep Learning Techniques”, ESCI 2025.</li>
+                    <li>Certificate of Appreciation for guiding “Melanoma Detection using Dermoscopic Images and Support Vector Machine” — 5th National Level IEEE Project Competition (2021).</li>
+                    <li>Completed Innovation Ambassador (Foundation & Advanced) by MoE’s Innovation Cell & AICTE; IBM Enterprise Design Thinking Practitioner.</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <h2>Other Recognitions</h2>
+                <ul class="ach-list">
+                    <li>Secured Anna University level 8th Rank in PG course and Branch Topper in ME(SE).</li>
+                    <li>Secured Anna University level 36th rank in B.Tech.</li>
+                    <li>Got Certificate of Appreciation for achieving 90% in analytical subject two times.</li>
+                    <li>Received Teaching Excellence Award & NPTEL Discipline Star.</li>
+                    <li>Passed TalentNext certification & recognized as Wipro Certified Faculty mentor for PBL in Java J2EE.</li>
+                </ul>
+            </section>
+
+            <footer class="card" style="font-size:13px;">
+                <div><strong>Contact:</strong> <a href="mailto:vaishnavi1731@gmail.com">vaishnavi1731@gmail.com</a> · <a href="tel:+919952139457">+91 99521 39457</a></div>
+                <div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,0.6)">Designed for clarity, academic & professional presentation.</div>
+            </footer>
+        </main>
+    </div>
 </body>
-</html>
+</html></ul></div></aside></div>
